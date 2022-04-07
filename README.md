@@ -27,3 +27,14 @@ task2
 &#8594; kotlin &#8594; Main.kt - код решения <br />
 &#8595; <br />
 resources &#8594; lemmas.txt (Леммы), tokens.txt (Токены)
+
+## Задание 3:
+
+Индекс файл лежит в task3/src/main/resources
+
+Код для построения индекса лежит в task3/src/main/kotlin/IndexBuilder.kt
+
+Код для чтения индекса и булева поиска находится в task3/src/main/kotlin/IndexBuilder.kt
+
+Для лемматизации токенов использвался jar файл из task2, если потребуется запустить самостоятельно, 
+то нужно после загрузки репозитория нужно прописать gradle build в директории task3.
