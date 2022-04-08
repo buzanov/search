@@ -13,7 +13,9 @@ fun main(args: Array<String>) {
         val scanner = Scanner(File(directory + "выкачка$i.txt"))
         scanner.iterator().forEach { scannedString ->
             //Это регулярное выражение нужно чтобы убрать все небуквенные символы
-            scannedString.split("[^а-яА-ЯёЁ]".toRegex())
+            scannedString
+                .replace("ё", "е")
+                .split("[^а-яА-Яa-zA-Z]".toRegex())
                 .filter { it.isNotBlank() }
                 .forEach {
                     //Это регулярное выражение разделяет строки типа "ЗвездыПсихологияЕда.." в отдельные токены

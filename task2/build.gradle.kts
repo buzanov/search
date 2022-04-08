@@ -36,6 +36,7 @@ tasks {
 dependencies {
     implementation("org.apache.lucene.morphology:morph:1.0")
     implementation("org.apache.lucene.morphology:russian:1.0")
+    implementation("org.apache.lucene.morphology:english:1.0")
     implementation("org.apache.lucene:lucene-core:3.5.0")
 
 

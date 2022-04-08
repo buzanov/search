@@ -22,11 +22,10 @@ kuda-kazan.ru/place/museum/ -> выкачка20.txt
 ntv.ru -> выкачка21.txt 
 tvkultura.ru -> выкачка22.txt 
 culture.ru -> выкачка23.txt 
-tass.ru -> выкачка24.txt 
+invest-idei.ru -> выкачка24.txt 
 filmpro.ru -> выкачка25.txt 
 radiovesti.ru -> выкачка26.txt 
 radiomayak.ru -> выкачка27.txt 
-rasp.yandex.ru -> выкачка28.txt 
 autorambler.ru -> выкачка29.txt 
 news.rambler.ru -> выкачка30.txt 
 teleprogramma.pro -> выкачка31.txt 
