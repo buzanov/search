@@ -27,7 +27,7 @@ class LemmatizationService {
         if (eng) {
             val info = engMorphology.getMorphInfo(string)
             if (!info.any { !it.contains(engStopTypes) }) return null
-            stream = russianAnalyzer.tokenStream("field", reader)
+            stream = engAnalyzer.tokenStream("field", reader)
             stream.reset()
             if (stream.incrementToken()) {
                 return stream.getAttribute(CharTermAttribute::class.java).toString()
@@ -35,7 +35,7 @@ class LemmatizationService {
         } else {
             val info = morphology.getMorphInfo(string)
             if (!info.any { !it.contains(rusStopTypes) }) return null
-            stream = engAnalyzer.tokenStream("field", reader)
+            stream = russianAnalyzer.tokenStream("field", reader)
             stream.reset()
             if (stream.incrementToken()) {
                 return stream.getAttribute(CharTermAttribute::class.java).toString()
