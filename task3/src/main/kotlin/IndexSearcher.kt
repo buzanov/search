@@ -1,6 +1,14 @@
 import java.io.File
 import java.util.*
 
+class Lemma(
+    val lemma: String,
+    var type: Type
+)
+
+enum class Type {
+    AND, OR, NOT
+}
 
 private val indexFile = File("src/main/resources/index.txt")
 private val indexMap = mutableMapOf<String, Set<Int>>()
@@ -21,21 +29,37 @@ fun main(args: Array<String>) {
 
 
 fun booleanSearch(query: String): Set<Int> {
-    val result = mutableSetOf<Int>()
-    val lemmas = query
-        .replace("ё", "е")
+    var result = mutableSetOf<Int>()
+    val lemmas = mutableListOf<Lemma>()
+    query.replace("ё", "е")
         .split(" ")
-        .mapNotNull { service.getLemmaOfString(it) }
+        .forEach {
+            when (it) {
+                Type.AND.name -> lemmas.last().type = Type.AND
+                Type.NOT.name -> lemmas.last().type = Type.NOT
+                Type.OR.name -> lemmas.last().type = Type.OR
+                else -> service.getLemmaOfString(it)?.let { it1 ->
+                    lemmas.add(Lemma(it1, Type.AND))
+                }
+            }
+        }
 
     if (lemmas.isNotEmpty()) {
-        val r = lemmas.stream()
-            .map { it.lowercase() }
-            .map { indexMap[it] }
-            .filter { it != null }
-            .reduce { set1, set2 -> set1!!.intersect(set2!!) }
-
-        if (r.isPresent)
-            result.addAll(r.get())
+        var i = 0
+        var lastOperator = Type.AND
+        lemmas.iterator().forEachRemaining {
+            if (i == 0)
+                result.addAll(indexMap[it.lemma.lowercase()]!!)
+            else {
+                when (lastOperator) {
+                    Type.AND -> result = result.intersect(indexMap[it.lemma.lowercase()]!!).toMutableSet()
+                    Type.OR -> result = result.union(indexMap[it.lemma.lowercase()]!!).toMutableSet()
+                    Type.NOT -> result = result.subtract(indexMap[it.lemma.lowercase()]!!).toMutableSet()
+                }
+            }
+            lastOperator = it.type
+            i += 1
+        }
     }
     return result
 }
